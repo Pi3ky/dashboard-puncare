@@ -1,0 +1,38 @@
+<div class="container my-5">
+  <h2>{{serviceId ? service.title : 'Tạo mới'}}</h2>
+  <form #form="ngForm">
+    <div class="row form-group">
+      <div class="col-6">
+        <label class="font-weight-bold">Tên dịch vụ: </label>
+        <input type="text" name="title" [(ngModel)]="service.title" class="form-control input-contact" required>
+      </div>
+      <div class="col-6">
+        <label class="font-weight-bold">Giá: </label>
+        <input type="number" name="phone" [(ngModel)]="service.price" class="form-control input-contact" step="1000">
+      </div>
+    </div>
+    <div class="row form-group">
+      <div class="col-6">
+        <label class="font-weight-bold">Ảnh: </label>
+        <input type="text" name="image" [(ngModel)]="service.image" class="form-control input-contact" required>
+      </div>
+      <div class="col-6">
+        <label class="font-weight-bold">Thời lượng: </label>
+        <input type="text" name="time" [(ngModel)]="service.time" class="form-control input-contact">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="font-weight-bold">Giới thiệu: </label>
+      <textarea type="text" name="description" [(ngModel)]="service.description" rows="5" class="form-control input-contact"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="font-weight-bold">Mô tả tổng quát: </label>
+      <textarea type="text" name="about" [(ngModel)]="service.about" rows="5" class="form-control input-contact"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="font-weight-bold">Chi tiết dịch vụ: </label>
+      <editor [(ngModel)]="service.details" [apiKey]="apiKey" name="details" [init]="config"></editor>
+    </div>
+    <button class="btn btn-lg btn-block btn-success" type="button" (click)="submit(form)" >{{serviceId ? 'Cập nhật' : 'Tạo mới'}}</button>
+  </form>
+</div>

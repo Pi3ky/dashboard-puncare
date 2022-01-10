@@ -1,0 +1,26 @@
+<div *ngIf="totalItems" class="d-flex flex-wrap align-items-center mb-4 {{templateClass}}">
+  <ng-select [clearable]="false" [searchable]="false" (change)="setRows($event)" [(ngModel)]="currentRow" *ngIf="enableSelectSize">
+    <ng-option *ngFor="let size of pageSize" [value]="size" >{{size}}</ng-option>
+  </ng-select>
+  <div class="d-flex d-md-block ml-3">
+    <pagination-template #p="paginationApi" [id]="templateId" (pageChange)="change($event)"
+      maxSize="5">
+      <ul class="custom-pagination pagination pagination-sm">
+        <li class="pagination-previous" [class.disabled]="p.isFirstPage()">
+          <a (click)="p.previous()" class="ml-0"><i class="fas fa-chevron-left"></i></a>
+        </li>
+        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+          <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+            <span>{{ page.label }}</span>
+          </a>
+          <a class="active" *ngIf="p.getCurrent() === page.value">
+            <span>{{ page.label }}</span>
+          </a>
+        </li>
+        <li class="pagination-next" [class.disabled]="p.isLastPage()">
+          <a (click)="p.next()" class="mr-0"><i class="fas fa-chevron-right"></i></a>
+        </li>
+      </ul>
+    </pagination-template>
+  </div>
+</div>

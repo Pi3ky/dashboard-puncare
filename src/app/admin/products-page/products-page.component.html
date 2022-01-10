@@ -1,0 +1,71 @@
+<div class="container mt-5">
+  <div class="d-flex align-items-center mb-3">
+    <h3>Danh sách sản phẩm</h3>
+    <ng-select [searchable]="false" (change)="getProducts()" [clearable]="false" [(ngModel)]="search.type_id" [placeholder]="'Lọc phân loại'" bindValue="_id" bindLabel="type_name" [class]="'ml-auto'">
+      <ng-option value="">Tất cả sản phẩm</ng-option>
+      <ng-option *ngFor="let item of listType" [value]="item._id">{{item.type_name}}</ng-option>
+    </ng-select>
+    <div class="input-group form-search-md ml-4">
+      <input type="text" class="form-control" [(ngModel)]="search.title" (keyup.enter)="getProducts()" placeholder="Tìm kiếm theo tên sản phẩm" aria-label="Tìm kiếm theo tên sản phẩm" aria-describedby="button-search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="button" id="button-search" (click)="getProducts()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">
+          <div class="pointer" (click)="sortByTitle()">
+            Sản phẩm
+            <i class="fas fa-sort" *ngIf="sortName === 0"></i>
+            <i class="fas fa-sort-down" *ngIf="sortName === 1"></i>
+            <i class="fas fa-sort-up" *ngIf="sortName === 2"></i>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="pointer" (click)="sortByPrice()">
+            Giá
+            <i class="fas fa-sort" *ngIf="sortPrice === 0"></i>
+            <i class="fas fa-sort-up" *ngIf="sortPrice === 1"></i>
+            <i class="fas fa-sort-down" *ngIf="sortPrice === 2"></i>
+          </div>
+        </th>
+        <th scope="col">Phân loại</th>
+        <th scope="col" class="text-right">
+          <button class="btn mx-1 btn-danger" routerLink="/admin/products/add">Thêm mới</button>
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listProducts | paginate: { id: 'custom_page', itemsPerPage: search.page_size, currentPage: search.page, totalItems: totalItems }; let index = index">
+          <td>{{index + 1}}</td>
+          <td>{{item.title}}</td>
+          <td>
+            <ng-container *ngIf="item.price; else noPrice">
+              <span>{{item.price | number : "4.0-2"}} {{item.currency}}</span>
+            </ng-container>
+            <ng-template #noPrice>
+              <span class="text-primary">Liên hệ</span>
+            </ng-template>
+          </td>
+          <td>
+            <div class="badge badge-success" *ngIf="item.type_id === TOY_ID">{{item.type_name}}</div>
+            <div class="badge badge-danger" *ngIf="item.type_id === FOOD_ID">{{item.type_name}}</div>
+          </td>
+          <td class="text-right">
+            <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="editProduct(item)">
+              <i class="fas fa-edit text-primary"></i>
+            </button>
+            <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="removeProduct(item)">
+              <i class="fas fa-trash-alt text-dark"></i>
+            </button>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination [totalItems]="totalItems" [currentRow]="search.page_size" (pageChange)="changePage($event)" ></app-pagination>
+</div>

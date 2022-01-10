@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <h3>Danh sách dịch vụ hiện hành</h3>
+  <div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">
+          <div class="pointer" (click)="sortByTitle()">
+            Dịch vụ
+            <i class="fas fa-sort" *ngIf="sortName === 0"></i>
+            <i class="fas fa-sort-down" *ngIf="sortName === 1"></i>
+            <i class="fas fa-sort-up" *ngIf="sortName === 2"></i>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="pointer" (click)="sortByPrice()">
+            Giá
+            <i class="fas fa-sort" *ngIf="sortPrice === 0"></i>
+            <i class="fas fa-sort-up" *ngIf="sortPrice === 1"></i>
+            <i class="fas fa-sort-down" *ngIf="sortPrice === 2"></i>
+          </div>
+        </th>
+        <th scope="col" class="text-right">
+          <button class="btn mx-1 btn-pun-danger rounded-sm btn-static" routerLink="/admin/services/add">Thêm mới</button>
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listServices | paginate: { id: 'custom_page', itemsPerPage: search.page_size, currentPage: search.page, totalItems: totalItems }; let index = index;">
+          <td>{{index + 1}}</td>
+          <td>{{item.title}}</td>
+          <td>
+            <ng-container *ngIf="item.price; else noPrice">
+              <span>{{item.price | number : "4.0-2"}} {{item.currency}}</span>
+            </ng-container>
+            <ng-template #noPrice>
+              <span class="text-primary">Liên hệ</span>
+            </ng-template>
+          </td>
+          <td class="text-right">
+            <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="editService(item)">
+              <i class="fas fa-edit text-primary"></i>
+            </button>
+            <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="removeService(item)">
+              <i class="fas fa-trash-alt text-dark"></i>
+            </button>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination [totalItems]="totalItems" [currentRow]="search.page_size" (pageChange)="changePage($event)" ></app-pagination>
+</div>
