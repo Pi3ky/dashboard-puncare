@@ -1,33 +1,69 @@
 <div class="container my-5">
-  <h2>{{serviceId ? service.title : 'Tạo mới'}}</h2>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin/services" routerLinkActive="active" >Danh sách dịch vụ hiện hành</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{serviceId ? service.title : 'Tạo mới'}}</li>
+    </ol>
+  </nav>
   <form #form="ngForm">
     <div class="row form-group">
-      <div class="col-6">
+      <div class="col-12 col-md-6 mb-3 mb-md-0">
         <label class="font-weight-bold">Tên dịch vụ: </label>
         <input type="text" name="title" [(ngModel)]="service.title" class="form-control input-contact" required>
       </div>
-      <div class="col-6">
+      <div class="col-12 col-md-6 mb-3 mb-md-0">
         <label class="font-weight-bold">Giá: </label>
         <input type="number" name="phone" [(ngModel)]="service.price" class="form-control input-contact" step="1000">
       </div>
     </div>
-    <div class="row form-group">
-      <div class="col-6">
-        <label class="font-weight-bold">Ảnh: </label>
-        <input type="text" name="image" [(ngModel)]="service.image" class="form-control input-contact" required>
+
+    <div class="row">
+
+      <div class="col-12 col-md-6 mb-3 mb-md-0 order-md-1 order-2">
+        <div class="form-group">
+          <label class="font-weight-bold">Ảnh: </label>
+          <div class="custom-file">
+            <input type="file" #input name="image" class="form-control input-contact" id="addImage" (change)="uploadImage($event, input)">
+            <label class="custom-file-label" for="addImage" aria-describedby="addImage">{{service.image}}</label>
+          </div>
+        </div>
+        <div class="mb-3 mb-md-0 d-flex align-items-start">
+          <div class="placeholder-img position-relative">
+            <img src="./assets/images/placeholer-image.png" class="mw-100" *ngIf="!selectedImg">
+            <img [src]="selectedImg" class="mw-100" *ngIf="selectedImg">
+            <div class="loading-overlay" *ngIf="isLoading">
+              <div class="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-6">
-        <label class="font-weight-bold">Thời lượng: </label>
-        <input type="text" name="time" [(ngModel)]="service.time" class="form-control input-contact">
+      <div class="col-12 col-md-6 mb-3 mb-md-0 order-1 order-md-2">
+        <div class="form-group">
+          <label class="font-weight-bold">Thời lượng: </label>
+          <input type="text" name="time" [(ngModel)]="service.time" class="form-control input-contact">
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Giới thiệu: </label>
+          <textarea type="text" name="description" [(ngModel)]="service.description" rows="5" class="form-control input-contact"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Mô tả tổng quát: </label>
+          <textarea type="text" name="about" [(ngModel)]="service.about" rows="5" class="form-control input-contact"></textarea>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label class="font-weight-bold">Giới thiệu: </label>
-      <textarea type="text" name="description" [(ngModel)]="service.description" rows="5" class="form-control input-contact"></textarea>
-    </div>
-    <div class="form-group">
-      <label class="font-weight-bold">Mô tả tổng quát: </label>
-      <textarea type="text" name="about" [(ngModel)]="service.about" rows="5" class="form-control input-contact"></textarea>
     </div>
     <div class="form-group">
       <label class="font-weight-bold">Chi tiết dịch vụ: </label>

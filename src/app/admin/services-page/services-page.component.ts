@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -29,6 +30,7 @@ export class ServicesPageComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private modalService: BsModalService,
     private router: Router,
+    private storage: AngularFireStorage,
     private adminService: AdminService,
     private alertService: AlertService,
   ) { }
@@ -103,6 +105,9 @@ export class ServicesPageComponent implements OnInit {
           this.spinner.show();
           this.adminService.removeService(service._id).subscribe(
             res => {
+              if (service.image) {
+                this.storage.storage.refFromURL(service.image).delete();
+              }
               this.spinner.hide();
               this.alertService.success('Xóa dịch vụ thành công!');
               this.getServices();

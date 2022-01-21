@@ -1,35 +1,69 @@
 <div class="container mt-5">
-  <h2>{{productId ? product.title : 'Tạo mới'}}</h2>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/admin/products" routerLinkActive="active" >Danh sách sản phẩm</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{productId ? product.title : 'Tạo mới'}}</li>
+    </ol>
+  </nav>
   <form #form="ngForm">
-    <div class="row form-group">
-      <div class="col-6">
-        <label class="font-weight-bold">Tên sản phẩm: </label>
-        <input type="text" name="title" [(ngModel)]="product.title" class="form-control input-contact" required>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label class="font-weight-bold">Tên sản phẩm: </label>
+          <input type="text" name="title" [(ngModel)]="product.title" class="form-control input-contact" required>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Giá: </label>
+          <input type="number" name="phone" [(ngModel)]="product.price" class="form-control input-contact" step="1000" required>
+        </div>
+        <div class="row">
+          <div class="col-12 mb-3 mb-lg-0 {{product.type_id === FOOD_ID ? 'col-lg-6' : ''}}">
+            <label class="font-weight-bold">Phân loại: </label>
+            <ng-select [items]="typeProduct" [(ngModel)]="product.type_id" [clearable]="false" [searchable]="false" bindValue="_id" (ngModelChange)="selectType($event)" [placeholder]="'Chọn loại'" name="type" bindLabel="type_name" required></ng-select>
+          </div>
+          <div class="col-12 mb-3 mb-lg-0 col-lg-6" *ngIf="product.type_id === FOOD_ID">
+            <label class="font-weight-bold">Trọng lượng: </label>
+            <input type="text" name="weight" [(ngModel)]="product.weight" class="form-control input-contact">
+          </div>
+        </div>
       </div>
-      <div class="col-6">
-        <label class="font-weight-bold">Giá: </label>
-        <input type="number" name="phone" [(ngModel)]="product.price" class="form-control input-contact" step="1000" required>
-      </div>
-    </div>
-    <div class="row form-group">
-      <div class="col-6">
-        <label class="font-weight-bold">Ảnh: </label>
-        <input type="text" name="image" [(ngModel)]="product.image" class="form-control input-contact" required>
-      </div>
-      <div class="{{product.type_id === FOOD_ID ? 'col-3' : 'col-6'}}">
-        <label class="font-weight-bold">Phân loại: </label>
-        <ng-select [items]="typeProduct" [(ngModel)]="product.type_id" [clearable]="false" [searchable]="false" bindValue="_id" (ngModelChange)="selectType($event)" [placeholder]="'Chọn loại'" name="type" bindLabel="type_name" required></ng-select>
-      </div>
-      <div class="col-3" *ngIf="product.type_id === FOOD_ID">
-        <label class="font-weight-bold">Trọng lượng: </label>
-        <input type="text" name="weight" [(ngModel)]="product.weight" class="form-control input-contact">
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label class="font-weight-bold">Ảnh: </label>
+          <div class="custom-file">
+            <input type="file" #input name="image" class="form-control input-contact" id="addImage" (change)="uploadImage($event, input)" required>
+            <label class="custom-file-label" for="addImage" aria-describedby="addImage">{{product.image}}</label>
+          </div>
+        </div>
+        <div class="mb-3 mb-md-0 d-flex align-items-start">
+          <div class="placeholder-img position-relative">
+            <img src="./assets/images/placeholer-image.png" class="mw-100" *ngIf="!selectedImg">
+            <img [src]="selectedImg" class="mw-100" *ngIf="selectedImg">
+            <div class="loading-overlay" *ngIf="isLoading">
+              <div class="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="form-group">
       <label class="font-weight-bold">Mô tả sản phẩm: </label>
       <editor [(ngModel)]="product.details" [apiKey]="apiKey" name="details" [init]="config"></editor>
     </div>
-    <button class="btn btn-lg btn-block btn-success" type="button" (click)="submit(form)">{{productId ? 'Cập nhật' : 'Tạo mới'}}</button>
+    <button class="btn btn-lg mb-5 btn-block btn-success" type="button" (click)="submit(form)">{{productId ? 'Cập nhật' : 'Tạo mới'}}</button>
   </form>
 
 </div>

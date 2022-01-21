@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 import { AlertService } from 'src/app/services/alert.service';
 import { apiKeyTiny } from 'src/app/_common/const';
@@ -11,10 +14,14 @@ import { AdminService } from '../../admin.service';
   templateUrl: './edit-product.component.html',
   styleUrls: ['./edit-product.component.scss']
 })
-export class EditProductComponent implements OnInit {
+export class EditProductComponent implements OnInit, OnDestroy{
   productId: string;
   FOOD_ID = "61cc2da84922a34fdb8e02eb";
+  selectedImg = '';
+  existedImg = '';
   apiKey = apiKeyTiny;
+  isLoading = false;
+  downloadURL: Observable<string>;
   config = {
     height: 400,
     menubar: false,
@@ -27,6 +34,7 @@ export class EditProductComponent implements OnInit {
       'undo redo | formatselect | bold italic | \ alignleft aligncenter alignright alignjustify | \
       bullist numlist outdent indent | removeformat | help'
   }
+  submitted: boolean = false;
   typeProduct = [];
   product = {
     title: '',
@@ -39,9 +47,11 @@ export class EditProductComponent implements OnInit {
   };
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private adminService: AdminService,
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
+    private storage: AngularFireStorage
   ) { }
 
   ngOnInit() {
@@ -52,11 +62,19 @@ export class EditProductComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this.selectedImg && !this.submitted) {
+      this.storage.storage.refFromURL(this.selectedImg).delete();
+    }
+  }
+
   getProduct() {
     this.spinner.show();
     this.adminService.getProductsDetail(this.productId).subscribe(
       res => {
         this.product = res;
+        this.existedImg = this.product.image;
+        this.selectedImg = this.product.image;
         this.spinner.hide();
       }, err => {
         console.error(err);
@@ -78,10 +96,11 @@ export class EditProductComponent implements OnInit {
 
   createProduct() {
     this.spinner.show();
+    this.product.image = this.selectedImg;
     this.adminService.createProduct(this.product).subscribe(
       res => {
         this.alertService.success('Thêm mới thành công!');
-        this.spinner.hide();
+        this.router.navigate(['admin/products'])
       },
       err => {
         this.spinner.hide();
@@ -92,6 +111,7 @@ export class EditProductComponent implements OnInit {
 
 
   submit(form) {
+    this.submitted = true;
     form.control.markAllAsTouched();
     if (form.valid) {
       if (this.productId) {
@@ -108,16 +128,47 @@ export class EditProductComponent implements OnInit {
 
   updateProduct() {
     this.spinner.show();
+    if (this.existedImg) {
+      this.storage.storage.refFromURL(this.existedImg).delete();
+    }
+    this.product.image = this.selectedImg;
     this.adminService.updateProduct(this.productId, this.product).subscribe(
       res => {
         this.alertService.success('Cập nhật thành công!');
-        this.spinner.hide();
+        this.router.navigate(['admin/products'])
       },
       err => {
         this.spinner.hide();
         this.alertService.error('Cập nhật thất bại!');
       }
     )
+  }
+
+  uploadImage(evt, input) {
+    if (evt) {
+      if (this.product.image) {
+        this.storage.storage.refFromURL(this.product.image).delete();
+      }
+      this.isLoading = true;
+      const file = evt.target.files[0];
+      var time = Date.now();
+      const name = file.name.split(".");
+      const filePath = `products/${name[0]}-${time}`;
+      const fileRef = this.storage.ref(filePath);
+      const task = this.storage.upload(`products/${name[0]}-${time}`, file);
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          this.downloadURL = fileRef.getDownloadURL();
+          this.downloadURL.subscribe((url) => {
+            if (url) {
+              this.selectedImg = url;
+              this.isLoading = false;
+            }
+          });
+        })
+      ).subscribe();
+      input.value = '';
+    }
   }
 
 }

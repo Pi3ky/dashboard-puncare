@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AngularFireModule } from "@angular/fire";
+import { environment } from "../environments/environment";
+import { AngularFireStorageModule } from "@angular/fire/storage";
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './_components/header/header.component';
@@ -22,7 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AngularFireStorageModule,
     NgxPermissionsModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     ToastrModule.forRoot({
       maxOpened: 1,
       autoDismiss: true

@@ -6,6 +6,7 @@ import { AdminService } from '../admin.service';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
 import { ConfirmModalComponent } from 'src/app/_components/confirm-modal/confirm-modal.component';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-products-page',
@@ -34,6 +35,7 @@ export class ProductsPageComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private modalService: BsModalService,
     private router: Router,
+    private storage: AngularFireStorage,
     private adminService: AdminService,
     private alertService: AlertService,
   ) { }
@@ -117,6 +119,9 @@ export class ProductsPageComponent implements OnInit {
           this.spinner.show();
           this.adminService.removeProduct(product._id).subscribe(
             res => {
+              if (product.image) {
+                this.storage.storage.refFromURL(product.image).delete();
+              }
               this.spinner.hide();
               this.alertService.success('Xóa sản phẩm thành công!');
               this.getProducts();
