@@ -83,8 +83,8 @@ export class EditServiceComponent implements OnInit, OnDestroy {
 
   submit(form) {
     form.control.markAllAsTouched();
-    this.submitted = true;
     if (form.valid) {
+      this.submitted = true;
       if (this.serviceId) {
         this.updateService();
       } else {

@@ -14,19 +14,23 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { ShareModule } from './_components/share.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AlertComponent
+    AlertComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireStorageModule,
+    ShareModule,
     NgxPermissionsModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     ToastrModule.forRoot({

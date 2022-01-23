@@ -1,0 +1,18 @@
+<div class="container px-5">
+  <div class="narrow-container">
+    <h1 class="text-center my-5">Đăng nhập</h1>
+    <form #form="ngForm">
+      <div class="form-group">
+        <label class="font-weight-bold">Email: </label>
+        <input type="text" name="email" [(ngModel)]="session.email" class="form-control form-control-lg input-contact" required>
+      </div>
+      <div class="form-group">
+        <label class="font-weight-bold">Mật khẩu: </label>
+        <input type="password" name="password" [(ngModel)]="session.password" class="form-control form-control-lg input-contact" required>
+      </div>
+      <div class="text-center mt-4">
+        <button class="btn btn-lg btn-info" (click)="createSession(form)" type="button" [disabled]="submitted">Đăng nhập</button>
+      </div>
+    </form>
+  </div>
+</div>

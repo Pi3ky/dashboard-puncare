@@ -111,9 +111,9 @@ export class EditProductComponent implements OnInit, OnDestroy{
 
 
   submit(form) {
-    this.submitted = true;
     form.control.markAllAsTouched();
     if (form.valid) {
+      this.submitted = true;
       if (this.productId) {
         this.updateProduct();
       } else {
