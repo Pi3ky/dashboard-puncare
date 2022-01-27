@@ -1,0 +1,62 @@
+<div class="modal-header border-bottom-0">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+<div class="modal-body">
+  <p class="font-weight-bold h4 mb-3">{{order.name}}</p>
+  <div class="row pb-3">
+    <div class="col-12 col-lg-6">
+      <p class="mb-2">SĐT: <b>{{order.phone}}</b></p>
+      <p class="mb-2">{{order.address}}, {{order.district}}</p>
+      <p class="mb-2">{{order.city}}, {{order.post_code}}</p>
+      <p class="mb-2">Ngày tạo: {{order.create_date | date : 'dd/MM/yyyy'}}</p>
+    </div>
+    <div class="col-12 col-lg-6">
+      <p class="mb-2">Trạng thái: <b>{{order.status === 'created' ? 'Mới tạo' : 'Đã vận chuyển'}}</b></p>
+      <p class="mb-2">Giá trị: <b class="text-danger">{{order.totalPrice | number : '4.0-2'}} VNĐ</b></p>
+      <p class="mb-2">Phương thức: {{order.payment === 'banking' ? 'Chuyển khoản' : 'Tiền mặt'}}</p>
+    </div>
+  </div>
+  <div class="table-responsive table-md">
+    <table class="table table-bordered">
+      <thead>
+        <th>#</th>
+        <th>Tên</th>
+        <th>Hình ảnh</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of order.items; let index = index">
+          <td>{{index + 1}}</td>
+          <td>{{item.title}} {{item.size ? ' - ' + item.size : ''}}</td>
+          <td><img [src]="item.image" [alt]="item.title" width="70"></td>
+          <td>{{item.price | number : '4.0-2'}} VNĐ</td>
+          <td>{{item.quantity}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-info" (click)="finishOrder()">Vận chuyển</button>
+  <button class="btn btn-outline-danger" (click)="removeOrder()">Xóa đơn hàng</button>
+  <button class="btn btn-outline-dark" (click)="close()">Thoát</button>
+</div>
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="lds-spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

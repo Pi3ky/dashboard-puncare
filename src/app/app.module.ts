@@ -1,3 +1,4 @@
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +17,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { ShareModule } from './_components/share.module';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { ShareModule } from './_components/share.module';
     AppComponent,
     HeaderComponent,
     AlertComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,8 @@ import { ShareModule } from './_components/share.module';
     AngularFireStorageModule,
     ShareModule,
     NgxPermissionsModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     ToastrModule.forRoot({
       maxOpened: 1,

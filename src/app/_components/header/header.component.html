@@ -10,20 +10,30 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item mx-4">
+        <li class="nav-item mx-3">
           <a class="nav-link" routerLink="/admin/dashboard" routerLinkActive="active">Trang chính</a>
         </li>
-        <li class="nav-item mx-4">
+        <li class="nav-item mx-3">
           <a class="nav-link" routerLink="/admin/services" routerLinkActive="active">Dịch vụ</a>
         </li>
-        <li class="nav-item mx-4">
+        <li class="nav-item mx-3">
           <a class="nav-link" routerLink="/admin/products" routerLinkActive="active">Sản phẩm</a>
         </li>
-        <li class="nav-item mx-4">
+        <li class="nav-item mx-3">
           <a class="nav-link" routerLink="/admin/orders" routerLinkActive="active">Đơn hàng</a>
         </li>
-        <li class="nav-item mx-4">
+        <li class="nav-item mx-3">
           <a class="nav-link" routerLink="/admin/contacts" routerLinkActive="active">Lịch hẹn</a>
+        </li>
+        <li dropdown #dropdown="bs-dropdown" class="dropdown nav-item ml-3">
+          <a id="login-mode" dropdownToggle aria-controls="login-mode-dropdown" class="nav-link" href="javascript:;">
+            Tài khoản
+          </a>
+          <ul id="login-mode-dropdown" class="dropdown-menu mt-0 py-0 shadow border-0" role="menu"
+            aria-labelledby="login-mode">
+            <li role="menuitem"><a class="dropdown-item" (click)="changePW()" href="javascript:;">Đổi mật khẩu</a></li>
+            <li role="menuitem"><a class="dropdown-item" (click)="logout()" href="javascript:;">Đăng xuất</a></li>
+          </ul>
         </li>
       </ul>
     </div>

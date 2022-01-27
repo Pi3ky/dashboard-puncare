@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
 import { PublicService } from '../services/public.service';
 
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private publicService: PublicService,
     private alertService: AlertService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -25,14 +27,15 @@ export class LoginComponent implements OnInit {
     form.control.markAllAsTouched();
     if (form.valid) {
       this.submitted = true;
-      console.log(this.session)
       this.publicService.createSession(this.session).subscribe(
         res => {
-          console.log(res)
+          localStorage.setItem('user', JSON.stringify(res.user))
+          localStorage.setItem('token', JSON.stringify(res.token))
+          this.router.navigate([''])
         }, err => {
           this.submitted = false;
           console.error(err);
-          this.alertService.error(err);
+          this.alertService.error(err.error);
         }
       )
     }

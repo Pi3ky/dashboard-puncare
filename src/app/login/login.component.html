@@ -7,7 +7,10 @@
         <input type="text" name="email" [(ngModel)]="session.email" class="form-control form-control-lg input-contact" required>
       </div>
       <div class="form-group">
-        <label class="font-weight-bold">Mật khẩu: </label>
+        <label class="d-flex">
+          <span class="font-weight-bold">Mật khẩu:</span>
+          <a class="ml-auto" routerLink="/forgot-password">Quên mật khẩu?</a>
+        </label>
         <input type="password" name="password" [(ngModel)]="session.password" class="form-control form-control-lg input-contact" required>
       </div>
       <div class="text-center mt-4">

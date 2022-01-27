@@ -53,4 +53,16 @@ export class AdminService {
   createProduct(body): Observable<any>{
     return this.http.post<any>(`${urlApi}/api/products/create`, body);
   }
+
+  getOrders(param):Observable<any> {
+    return this.http.get<any>(`${urlApi}/api/orders`, {params: param})
+  }
+
+  updateStatusOrder(id): Observable<any>{
+    return this.http.put<any>(`${urlApi}/api/orders/${id}`, {});
+  }
+
+  deleteOrder(id): Observable<any> {
+    return this.http.delete(`${urlApi}/api/orders/${id}`)
+  }
 }

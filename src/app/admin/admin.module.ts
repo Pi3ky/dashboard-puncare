@@ -14,16 +14,27 @@ import { ShareModule } from '../_components/share.module';
 import { EditProductComponent } from './products-page/edit-product/edit-product.component';
 import { EditServiceComponent } from './services-page/edit-service/edit-service.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { ModalViewOrderComponent } from './orders-page/modal-view-order/modal-view-order.component';
 
 @NgModule({
-  declarations: [ServicesPageComponent, ProductsPageComponent, ContactsPageComponent, OrdersPageComponent, DashboardPageComponent, EditProductComponent, EditServiceComponent],
+  declarations: [
+    ServicesPageComponent,
+    ProductsPageComponent,
+    ContactsPageComponent,
+    OrdersPageComponent,
+    DashboardPageComponent,
+    EditProductComponent,
+    EditServiceComponent,
+    ModalViewOrderComponent,
+  ],
   imports: [
     CommonModule,
     ShareModule,
     EditorModule,
     ModalModule.forRoot(),
     NgSelectModule,
-    AdminRoutingModule
-  ]
+    AdminRoutingModule,
+  ],
+  entryComponents: [ModalViewOrderComponent]
 })
-export class AdminModule { }
+export class AdminModule {}

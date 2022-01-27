@@ -7,3 +7,8 @@
 .nav-link.active, .nav-link:hover {
   color: #f97561 !important;
 }
+.dropdown:hover {
+  .dropdown-menu {
+    display: block;
+  }
+}

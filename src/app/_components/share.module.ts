@@ -6,11 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { MustMatchDirective } from '../directives/must-match.directive';
 
 const E_MODULES =  [NgxPaginationModule, FormsModule, ReactiveFormsModule ];
 
 @NgModule({
-  declarations: [ConfirmModalComponent, PaginationComponent],
+  declarations: [ConfirmModalComponent, PaginationComponent, ChangePasswordComponent, MustMatchDirective,],
   imports: [
     CommonModule,
     NgxPaginationModule,
@@ -20,6 +22,6 @@ const E_MODULES =  [NgxPaginationModule, FormsModule, ReactiveFormsModule ];
     NgSelectModule,
   ],
   exports: [...E_MODULES, PaginationComponent],
-  entryComponents: [ConfirmModalComponent]
+  entryComponents: [ConfirmModalComponent, ChangePasswordComponent]
 })
 export class ShareModule { }

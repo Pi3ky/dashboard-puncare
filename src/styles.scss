@@ -191,3 +191,14 @@ button:focus, .btn:focus {
 .pointer {
   cursor: pointer;
 }
+
+//container
+.narrow-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+//table
+.table-md {
+  max-height: 500px;
+}
