@@ -54,7 +54,7 @@ export class ProductsPageComponent implements OnInit {
       },
       err => {
         console.error(err);
-        this.alertService.error(err);
+        this.alertService.error(err.error);
       }
     )
   }
@@ -65,7 +65,7 @@ export class ProductsPageComponent implements OnInit {
     },
     err => {
       console.error(err);
-      this.alertService.error(err)
+      this.alertService.error(err.error);
     });
   }
 
@@ -128,7 +128,7 @@ export class ProductsPageComponent implements OnInit {
             },
             err => {
               this.spinner.hide();
-              this.alertService.success('Xóa sản phẩm thất bại!');
+              this.alertService.error(err.error);
             }
           )
         }

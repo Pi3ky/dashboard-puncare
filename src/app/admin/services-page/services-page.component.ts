@@ -51,6 +51,7 @@ export class ServicesPageComponent implements OnInit {
       },
       err => {
         console.error(err);
+        this.alertService.error(err.error);
       }
     )
   }
@@ -114,7 +115,7 @@ export class ServicesPageComponent implements OnInit {
             },
             err => {
               this.spinner.hide();
-              this.alertService.success('Xóa dịch vụ thất bại!');
+              this.alertService.error(err.error)
             }
           )
         }

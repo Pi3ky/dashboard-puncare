@@ -46,7 +46,7 @@ export class ChangePasswordComponent implements OnInit {
           this.close();
         }, err => {
           console.error(err);
-          this.alertService.error(err)
+          this.alertService.error(err.error);
         }
       )
     }

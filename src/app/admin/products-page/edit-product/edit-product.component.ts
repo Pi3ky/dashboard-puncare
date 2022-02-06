@@ -79,7 +79,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
       }, err => {
         console.error(err);
         this.spinner.hide();
-        this.alertService.error(err);
+        this.alertService.error(err.error);
       }
     );
   }
@@ -90,7 +90,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
     },
     err => {
       console.error(err);
-      this.alertService.error(err)
+      this.alertService.error(err.error);
     });
   }
 

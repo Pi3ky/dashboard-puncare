@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       err => {
-        this.alertService.error(err);
+        this.alertService.error(err.error);
         console.error(err)
       }
     )

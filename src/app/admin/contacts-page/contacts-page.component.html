@@ -1,1 +1,62 @@
-<p>contacts-page works!</p>
+<div class="container mt-5">
+  <h3>Danh sách lịch hẹn</h3>
+  <div class="d-flex align-items-center flex-wrap">
+    <div class="input-group form-search-md">
+      <input type="text" class="form-control" [(ngModel)]="search.name" (keyup.enter)="getContacts()" placeholder="Tìm kiếm theo tên khách hàng" aria-label="Tìm kiếm theo tên khách hàng" aria-describedby="button-search">
+      <div class="input-group-append">
+        <button class="btn btn-outline-primary" type="button" id="button-search" (click)="getContacts()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+    <ng-select [(ngModel)]="search.service_id" [searchable]="false" [clearable]="false" class="ml-auto" (change)="getContacts()">
+      <ng-option value="">Tất cả</ng-option>
+      <ng-option *ngFor="let service of listServices" [value]="service._id">{{service.title}}</ng-option>
+    </ng-select>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">
+          <div class="pointer">
+            Khách hàng
+          </div>
+        </th>
+        <th>Số điện thoại</th>
+        <th scope="col">
+          <div class="pointer" (click)="sortByDate()">
+            Ngày tạo
+            <i class="fas fa-sort" *ngIf="sortDate === 0"></i>
+            <i class="fas fa-sort-up" *ngIf="sortDate === 1"></i>
+            <i class="fas fa-sort-down" *ngIf="sortDate === 2"></i>
+          </div>
+        </th>
+        <th>Dịch vụ</th>
+        <th>Ngày hẹn</th>
+        <th>Thời gian</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr (click)="openContact(item)" class="pointer"
+        *ngFor="let item of listContact | paginate: { id: 'custom_page', itemsPerPage: search.page_size, currentPage: search.page, totalItems: totalItems }; let index = index;">
+          <td>{{index + 1}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.create_date | date : "dd/MM/yyyy"}}</td>
+          <td>{{item.service_name}}</td>
+          <td>{{item.date_visit}}</td>
+          <td *ngIf="item.time_visit === 'morning'" class="text-success font-weight-bold">Buổi sáng</td>
+          <td *ngIf="item.time_visit === 'afternoon'" class="text-primary font-weight-bold">Buổi chiều</td>
+          <td *ngIf="item.time_visit === 'evening'" class="text-danger font-weight-bold">Buổi tối</td>
+          <td class="text-right">
+            <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="removeContact(item)">
+              <i class="fas fa-trash-alt text-danger"></i>
+            </button>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination [totalItems]="totalItems" [currentRow]="search.page_size" (pageChange)="changePage($event)" ></app-pagination>
+</div>

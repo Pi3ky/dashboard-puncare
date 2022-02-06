@@ -76,7 +76,7 @@ export class EditServiceComponent implements OnInit, OnDestroy {
       (err) => {
         console.error(err);
         this.spinner.hide();
-        this.alertService.error(err);
+        this.alertService.error(err.error);
       }
     );
   }

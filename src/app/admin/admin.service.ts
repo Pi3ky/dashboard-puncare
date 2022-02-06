@@ -65,4 +65,12 @@ export class AdminService {
   deleteOrder(id): Observable<any> {
     return this.http.delete(`${urlApi}/api/orders/${id}`)
   }
+
+  getContacts(param):Observable<any> {
+    return this.http.get(`${urlApi}/api/contacts`, { params: param });
+  }
+
+  deleteContact(id): Observable<any> {
+    return this.http.delete(`${urlApi}/api/contacts/${id}`)
+  }
 }

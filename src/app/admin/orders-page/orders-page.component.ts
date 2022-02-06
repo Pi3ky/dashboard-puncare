@@ -94,7 +94,11 @@ export class OrdersPageComponent implements OnInit {
   }
 
   changePage(page) {
-    console.log(page)
+    this.search.page = page.page;
+    if (page.showRow) {
+      this.search.page_size = page.showRow;
+    }
+    this.getOrders();
   }
 
   openOrder(order){
