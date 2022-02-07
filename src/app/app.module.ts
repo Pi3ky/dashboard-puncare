@@ -38,7 +38,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgxPermissionsModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
+    AngularFireModule.initializeApp(environment, "cloud"),
     ToastrModule.forRoot({
       maxOpened: 1,
       autoDismiss: true
