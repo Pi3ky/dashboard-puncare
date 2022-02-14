@@ -10,7 +10,7 @@ import { EditProductComponent } from './products-page/edit-product/edit-product.
 import { EditServiceComponent } from './services-page/edit-service/edit-service.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardPageComponent },
+  // { path: 'dashboard', component: DashboardPageComponent },
 
   { path: 'services', component: ServicesPageComponent },
   { path: 'services/add', component: EditServiceComponent },
@@ -25,7 +25,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'contacts',
     pathMatch: 'full'
   }
 ];

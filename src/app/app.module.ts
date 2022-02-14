@@ -19,7 +19,10 @@ import { LoginComponent } from './login/login.component';
 import { ShareModule } from './_components/share.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { SidebarModule } from 'ng-sidebar';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +31,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AlertComponent,
     LoginComponent,
     ForgotPasswordComponent,
+    ResetPasswordComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
+    LoadingBarHttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireStorageModule,
@@ -38,7 +44,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgxPermissionsModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
-    AngularFireModule.initializeApp(environment, "cloud"),
+    SidebarModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     ToastrModule.forRoot({
       maxOpened: 1,
       autoDismiss: true

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PublicService } from './services/public.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'admin-puncare';
+  currentUser: any;
+  constructor(
+    private publicService: PublicService
+  ){
+    this.publicService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
 }

@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="my-5">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a routerLink="/admin/services" routerLinkActive="active" >Danh sách dịch vụ hiện hành</a></li>
@@ -13,24 +13,22 @@
       </div>
       <div class="col-12 col-md-6 mb-3 mb-md-0">
         <label class="font-weight-bold">Giá: </label>
-        <input type="number" name="phone" [(ngModel)]="service.price" class="form-control input-contact" step="1000">
+        <input type="number" name="price" [(ngModel)]="service.price" class="form-control input-contact" step="1000" min="0">
       </div>
     </div>
-
     <div class="row">
-
       <div class="col-12 col-md-6 mb-3 mb-md-0 order-md-1 order-2">
         <div class="form-group">
           <label class="font-weight-bold">Ảnh: </label>
           <div class="custom-file">
-            <input type="file" #input name="image" class="form-control input-contact" id="addImage" (change)="uploadImage($event, input)">
+            <input type="file" #input name="image" class="form-control input-contact" id="addImage" (change)="uploadImage($event, input)" required>
             <label class="custom-file-label" for="addImage" aria-describedby="addImage">{{service.image}}</label>
           </div>
         </div>
         <div class="mb-3 mb-md-0 d-flex align-items-start">
           <div class="placeholder-img position-relative">
-            <img src="./assets/images/placeholer-image.png" class="mw-100" *ngIf="!selectedImg">
-            <img [src]="selectedImg" class="mw-100" *ngIf="selectedImg">
+            <img src="./assets/images/placeholer-image.png" class="mw-100" *ngIf="!service.image">
+            <img [src]="service.image" class="mw-100" *ngIf="service.image">
             <div class="loading-overlay" *ngIf="isLoading">
               <div class="lds-spinner">
                 <div></div>

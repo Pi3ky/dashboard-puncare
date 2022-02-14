@@ -31,6 +31,9 @@ export class HeaderComponent implements OnInit {
     }
     this.publicService.logout(param).subscribe(
       res => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        this.publicService.currentUserSubject.next(null);
         this.router.navigate(['/login']);
       },
       err => {

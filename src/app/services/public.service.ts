@@ -7,7 +7,7 @@ import { urlApi } from '../_common/const';
   providedIn: 'root'
 })
 export class PublicService {
-  private currentUserSubject: BehaviorSubject<any>;
+  public currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
   public _USERKEY = 'user';
   constructor(private http: HttpClient) {
@@ -33,6 +33,14 @@ export class PublicService {
   }
 
   updateUser(body, _id): Observable<any> {
-    return this.http.put<any>(`${urlApi}/api/users/${_id}`, body);
+    return this.http.put<any>(`${urlApi}/api/users/${_id}/change-password`, body);
+  }
+
+  forgotPassword(body): Observable<any> {
+    return this.http.post<any>(`${urlApi}/api/users/forgot-pw-admin`, body)
+  }
+
+  resetPassword(body, id): Observable<any> {
+    return this.http.post<any>(`${urlApi}/api/users/${id}/reset-pw`, body)
   }
 }

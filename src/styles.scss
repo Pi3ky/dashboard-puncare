@@ -83,8 +83,18 @@ button:focus, .btn:focus {
 }
 .form-control.ng-touched.ng-invalid {
   border: 1px solid #f97561;
+  ~ .custom-file-label {
+    border: 1px solid #f97561;
+  }
 }
-
+.input-errors{
+  position: absolute;
+  top: 73px;
+  font-size: 13px;
+  font-weight: 500;
+  left: 0;
+  color: rgba(220,53,69,.9);
+}
 .has-invalid {
   position: absolute;
   top: 10px;
@@ -187,9 +197,20 @@ button:focus, .btn:focus {
 	}
 }
 
+//Shadow
+.shadow-around {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
 // Other
 .pointer {
   cursor: pointer;
+}
+
+
+.ng-sidebar__content {
+  position: relative !important;
+  height: 100vh;
 }
 
 //container

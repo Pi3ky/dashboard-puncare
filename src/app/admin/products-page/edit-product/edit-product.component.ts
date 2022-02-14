@@ -74,7 +74,6 @@ export class EditProductComponent implements OnInit, OnDestroy{
       res => {
         this.product = res;
         this.existedImg = this.product.image;
-        this.selectedImg = this.product.image;
         this.spinner.hide();
       }, err => {
         console.error(err);
@@ -128,13 +127,13 @@ export class EditProductComponent implements OnInit, OnDestroy{
 
   updateProduct() {
     this.spinner.show();
-    if (this.existedImg) {
-      this.storage.storage.refFromURL(this.existedImg).delete();
-    }
     this.product.image = this.selectedImg;
     this.adminService.updateProduct(this.productId, this.product).subscribe(
       res => {
         this.alertService.success('Cập nhật thành công!');
+        if (this.existedImg) {
+          this.storage.storage.refFromURL(this.existedImg).delete();
+        }
         this.router.navigate(['admin/products'])
       },
       err => {
@@ -146,9 +145,6 @@ export class EditProductComponent implements OnInit, OnDestroy{
 
   uploadImage(evt, input) {
     if (evt) {
-      if (this.product.image) {
-        this.storage.storage.refFromURL(this.product.image).delete();
-      }
       this.isLoading = true;
       const file = evt.target.files[0];
       var time = Date.now();
@@ -162,6 +158,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
           this.downloadURL.subscribe((url) => {
             if (url) {
               this.selectedImg = url;
+              this.product.image = url
               this.isLoading = false;
             }
           });

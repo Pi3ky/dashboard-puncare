@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
       this.submitted = true;
       this.publicService.createSession(this.session).subscribe(
         res => {
-          localStorage.setItem('user', JSON.stringify(res.user))
-          localStorage.setItem('token', JSON.stringify(res.token))
+          localStorage.setItem('token', JSON.stringify(res.token));
+          this.publicService.setCurrentUserValue(res.user)
           this.router.navigate([''])
         }, err => {
           this.submitted = false;

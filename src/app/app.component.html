@@ -1,4 +1,19 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<ngx-loading-bar [color]="'#f97561'" [includeSpinner]="false"></ngx-loading-bar>
+
+<ng-sidebar-container *ngIf="currentUser; else other_currentUser">
+  <!-- Page content -->
+  <div ng-sidebar-content>
+    <app-header></app-header>
+    <!-- main app container -->
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</ng-sidebar-container>
+<ng-template #other_currentUser>
+  <div class="container">
+      <router-outlet></router-outlet>
+  </div>
+</ng-template>
 <app-alert></app-alert>
 <ngx-spinner></ngx-spinner>

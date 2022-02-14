@@ -70,7 +70,6 @@ export class EditServiceComponent implements OnInit, OnDestroy {
       (res) => {
         this.service = res;
         this.existedImg = this.service.image;
-        this.selectedImg = this.service.image;
         this.spinner.hide();
       },
       (err) => {
@@ -95,11 +94,10 @@ export class EditServiceComponent implements OnInit, OnDestroy {
 
   createService() {
     this.spinner.show();
-    this.service.image = this.selectedImg;
     this.adminService.createService(this.service).subscribe(
       (res) => {
         this.alertService.success("Thêm mới thành công!");
-        this.router.navigate(['admin/services'])
+        this.router.navigate(['admin/services']);
       },
       (err) => {
         this.spinner.hide();
@@ -110,13 +108,12 @@ export class EditServiceComponent implements OnInit, OnDestroy {
 
   updateService() {
     this.spinner.show();
-    if (this.existedImg) {
-      this.storage.storage.refFromURL(this.existedImg).delete();
-    }
-    this.service.image = this.selectedImg;
     this.adminService.updateService(this.serviceId, this.service).subscribe(
       (res) => {
         this.alertService.success("Cập nhật thành công!");
+        if (this.existedImg) {
+          this.storage.storage.refFromURL(this.existedImg).delete();
+        }
         this.router.navigate(['admin/services'])
       },
       (err) => {
@@ -128,7 +125,6 @@ export class EditServiceComponent implements OnInit, OnDestroy {
 
   uploadImage(evt, input) {
     if (evt) {
-      console.log(evt.target.files[0])
       this.isLoading = true;
       const file = evt.target.files[0];
       var time = Date.now();
@@ -141,6 +137,7 @@ export class EditServiceComponent implements OnInit, OnDestroy {
           this.downloadURL = fileRef.getDownloadURL();
           this.downloadURL.subscribe((url) => {
             if (url) {
+              this.service.image = url;
               this.selectedImg = url;
               this.isLoading = false;
             }

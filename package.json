@@ -1,10 +1,10 @@
 {
   "name": "admin-puncare",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -22,7 +22,10 @@
     "@angular/router": "~8.0.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@ng-select/ng-select": "^3.7.3",
+    "@ngx-loading-bar/http-client": "^4.2.0",
+    "@ngx-loading-bar/core": "^4.2.0",
     "@tinymce/tinymce-angular": "^3.0.0",
+    "ng-sidebar": "^9.4.2",
     "animate.css": "^4.1.1",
     "bootstrap": "^4.4.1",
     "firebase": "^7.24.0",

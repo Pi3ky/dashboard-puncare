@@ -3,6 +3,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
+import { ConfirmModalComponent } from 'src/app/_components/confirm-modal/confirm-modal.component';
 import { AdminService } from '../admin.service';
 import { ModalViewOrderComponent } from './modal-view-order/modal-view-order.component';
 
@@ -81,16 +82,29 @@ export class OrdersPageComponent implements OnInit {
   }
 
   removeOrder(order) {
-    this.spinner.show();
-    this.adminService.deleteOrder(order._id).pipe(finalize(() => this.spinner.hide())).subscribe(
-      res => {
-        this.alertService.success("Đã xóa đơn hàng");
-        this.getOrders();
-      },
-      err => {
-        this.alertService.error(err.error);
+    const modalConfirm = this.modalService.show(ConfirmModalComponent, {
+      class: "modal-md modal-dialog-centered",
+      initialState: {
+        title: 'Xóa đơn hàng',
+        message: `Bạn có chắc muốn xóa đơn hàng này?`
       }
-    )
+    });
+    modalConfirm.content.result.subscribe(
+      isConfirm => {
+        if (isConfirm) {
+          this.spinner.show();
+          this.adminService.deleteOrder(order._id).pipe(finalize(() => this.spinner.hide())).subscribe(
+            res => {
+              this.alertService.success("Đã xóa đơn hàng");
+              this.getOrders();
+            },
+            err => {
+              this.alertService.error(err.error);
+            }
+          )
+        }
+      })
+
   }
 
   changePage(page) {

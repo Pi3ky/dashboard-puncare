@@ -3,6 +3,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
+import { ConfirmModalComponent } from 'src/app/_components/confirm-modal/confirm-modal.component';
 import { AdminService } from '../admin.service';
 
 @Component({
@@ -69,10 +70,6 @@ export class ContactsPageComponent implements OnInit {
     )
   }
 
-  openContact() {
-
-  }
-
   sortByDate() {
     this.search.sort = 'create_date';
     if (this.sortDate === 0) {
@@ -89,16 +86,29 @@ export class ContactsPageComponent implements OnInit {
   }
 
   removeContact(contact) {
-    this.spinner.show();
-    this.adminService.deleteContact(contact._id).pipe(finalize(() => this.spinner.hide())).subscribe(
-      res => {
-        this.alertService.success("Đã xóa lịch hẹn!");
-        this.getContacts();
-      },
-      err => {
-        this.alertService.error(err.error);
+    const modalConfirm = this.modalService.show(ConfirmModalComponent, {
+      class: "modal-md modal-dialog-centered",
+      initialState: {
+        title: 'Xóa lịch hẹn',
+        message: `Bạn có chắc muốn xóa lịch hẹn này?`
       }
-    )
+    });
+    modalConfirm.content.result.subscribe(
+      isConfirm => {
+        if (isConfirm) {
+          this.spinner.show();
+          this.adminService.deleteContact(contact._id).pipe(finalize(() => this.spinner.hide())).subscribe(
+            res => {
+              this.alertService.success("Đã xóa lịch hẹn!");
+              this.getContacts();
+            },
+            err => {
+              this.alertService.error(err.error);
+            }
+          )
+        }
+      })
+
   }
 
   changePage(page) {
