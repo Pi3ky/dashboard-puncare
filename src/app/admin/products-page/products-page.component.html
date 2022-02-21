@@ -35,6 +35,7 @@
           </div>
         </th>
         <th scope="col">Phân loại</th>
+        <th scope="col">Số lượng</th>
         <th scope="col" class="text-right">
           <button class="btn mx-1 btn-danger" routerLink="/admin/products/add">Thêm mới</button>
         </th>
@@ -56,6 +57,12 @@
               <div class="badge badge-success" *ngIf="item.type_id === TOY_ID">{{item.type_name}}</div>
               <div class="badge badge-danger" *ngIf="item.type_id === FOOD_ID">{{item.type_name}}</div>
             </td>
+            <ng-container *ngIf="item.amount && item.amount > 0; else over">
+              <td class="text-success font-weight-bold">{{item.amount}}</td>
+            </ng-container>
+            <ng-template #over>
+              <td class="text-danger font-weight-bold">Hết hàng</td>
+            </ng-template>
             <td class="text-right">
               <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="editProduct(item)">
                 <i class="fas fa-edit text-primary"></i>

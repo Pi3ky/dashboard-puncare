@@ -21,7 +21,7 @@
         <div class="form-group">
           <label class="font-weight-bold">Ảnh: </label>
           <div class="custom-file">
-            <input type="file" #input name="image" class="form-control input-contact" id="addImage" (change)="uploadImage($event, input)" required>
+            <input type="file" #input name="image" class="form-control input-contact {{loading && !service.image ? 'ng-touched ng-invalid' : ''}}" id="addImage" (change)="uploadImage($event, input)" required>
             <label class="custom-file-label" for="addImage" aria-describedby="addImage">{{service.image}}</label>
           </div>
         </div>

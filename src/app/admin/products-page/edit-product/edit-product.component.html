@@ -12,9 +12,15 @@
           <label class="font-weight-bold">Tên sản phẩm: </label>
           <input type="text" name="title" [(ngModel)]="product.title" class="form-control input-contact" required>
         </div>
-        <div class="form-group">
-          <label class="font-weight-bold">Giá: </label>
-          <input type="number" name="price" [(ngModel)]="product.price" class="form-control input-contact" step="1000" required min="0">
+        <div class="row">
+          <div class="col-12 mb-3 mb-lg-0 col-lg-6">
+            <label class="font-weight-bold">Giá: </label>
+            <input type="number" name="price" [(ngModel)]="product.price" class="form-control input-contact" step="1000" required min="0">
+          </div>
+          <div class="col-12 mb-3 mb-lg-0 col-lg-6">
+            <label class="font-weight-bold">Số lượng: </label>
+            <input type="number" name="amount" [(ngModel)]="product.amount" class="form-control input-contact" required min="0">
+          </div>
         </div>
         <div class="row">
           <div class="col-12 mb-3 mb-lg-0 {{product.type_id === FOOD_ID ? 'col-lg-6' : ''}}">
@@ -31,7 +37,7 @@
         <div class="form-group">
           <label class="font-weight-bold">Ảnh: </label>
           <div class="custom-file">
-            <input type="file" #input name="image" class="form-control input-contact" id="addImage" (change)="uploadImage($event, input)" required>
+            <input type="file" #input name="image" class="form-control input-contact {{loading && !product.image ? 'ng-touched ng-invalid' : ''}}" id="addImage" (change)="uploadImage($event, input)" required>
             <label class="custom-file-label" for="addImage" aria-describedby="addImage">{{product.image}}</label>
           </div>
         </div>

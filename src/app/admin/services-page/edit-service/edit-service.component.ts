@@ -25,6 +25,7 @@ export class EditServiceComponent implements OnInit, OnDestroy {
   downloadURL: Observable<string>;
   apiKey = apiKeyTiny;
   isLoading = false;
+  loading = false;
   submitted = false;
   selectedImg = '';
   existedImg = '';
@@ -82,6 +83,7 @@ export class EditServiceComponent implements OnInit, OnDestroy {
 
   submit(form) {
     form.control.markAllAsTouched();
+    this.loading = true;
     if (form.valid) {
       this.submitted = true;
       if (this.serviceId) {

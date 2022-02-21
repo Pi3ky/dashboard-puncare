@@ -21,6 +21,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
   existedImg = '';
   apiKey = apiKeyTiny;
   isLoading = false;
+  loading = false;
   downloadURL: Observable<string>;
   config = {
     height: 400,
@@ -40,6 +41,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
     title: '',
     image: '',
     type_id: null,
+    amount: 0,
     type_name: '',
     price: '',
     details: '',
@@ -111,6 +113,7 @@ export class EditProductComponent implements OnInit, OnDestroy{
 
   submit(form) {
     form.control.markAllAsTouched();
+    this.loading = true;
     if (form.valid) {
       this.submitted = true;
       if (this.productId) {
