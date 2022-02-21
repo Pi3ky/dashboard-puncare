@@ -130,11 +130,11 @@ export class EditProductComponent implements OnInit, OnDestroy{
 
   updateProduct() {
     this.spinner.show();
-    this.product.image = this.selectedImg;
+    this.product.image = this.selectedImg || this.existedImg;
     this.adminService.updateProduct(this.productId, this.product).subscribe(
       res => {
         this.alertService.success('Cập nhật thành công!');
-        if (this.existedImg) {
+        if (this.existedImg && this.selectedImg) {
           this.storage.storage.refFromURL(this.existedImg).delete();
         }
         this.router.navigate(['admin/products'])

@@ -113,7 +113,7 @@ export class EditServiceComponent implements OnInit, OnDestroy {
     this.adminService.updateService(this.serviceId, this.service).subscribe(
       (res) => {
         this.alertService.success("Cập nhật thành công!");
-        if (this.existedImg) {
+        if (this.existedImg && this.selectedImg) {
           this.storage.storage.refFromURL(this.existedImg).delete();
         }
         this.router.navigate(['admin/services'])
