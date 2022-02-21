@@ -45,10 +45,11 @@
             <td>{{item.phone}}</td>
             <td>{{item.create_date | date : "dd/MM/yyyy"}}</td>
             <td>{{item.service_name}}</td>
-            <td>{{item.date_visit}}</td>
+            <td>{{item.date_visit | date : "dd/MM/yyyy"}}</td>
             <td *ngIf="item.time_visit === 'morning'" class="text-success font-weight-bold">Buổi sáng</td>
             <td *ngIf="item.time_visit === 'afternoon'" class="text-primary font-weight-bold">Buổi chiều</td>
             <td *ngIf="item.time_visit === 'evening'" class="text-danger font-weight-bold">Buổi tối</td>
+            <td *ngIf="!item.time_visit">Liên hệ</td>
             <td class="text-right">
               <button class="btn btn-sm bg-white shadow-sm mx-1" (click)="removeContact(item)">
                 <i class="fas fa-trash-alt text-danger"></i>
