@@ -206,7 +206,9 @@ button:focus, .btn:focus {
 .pointer {
   cursor: pointer;
 }
-
+.ranges li {
+  font-size: 16px !important;
+}
 
 .ng-sidebar__content {
   position: relative !important;

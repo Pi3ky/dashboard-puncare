@@ -1,0 +1,10 @@
+.selector-date {
+  min-width: 200px;
+  text-align: left;
+  height: calc(1.5em + 0.75rem + 2px);
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}

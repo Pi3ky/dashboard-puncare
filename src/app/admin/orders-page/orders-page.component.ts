@@ -25,7 +25,7 @@ export class OrdersPageComponent implements OnInit {
     dir: '',
     status: '',
     page: 1,
-    page_size: 20
+    page_size: 10
   };
   totalItems = 0;
   constructor(

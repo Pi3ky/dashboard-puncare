@@ -1,7 +1,12 @@
 <div class="mt-5">
   <h3>Danh sách lịch hẹn</h3>
   <div class="d-flex align-items-center flex-wrap">
-    <div class="input-group form-search-md">
+    <button class="selector-date btn mb-3 mb-lg-0 mr-4" daterangepicker (selected)="selectedDaterange($event)">{{dateRange}}</button>
+    <ng-select [(ngModel)]="search.service_id" [searchable]="false" [clearable]="false" class="mb-3 mb-lg-0 mr-auto" (change)="getContacts()">
+      <ng-option value="">Tất cả</ng-option>
+      <ng-option *ngFor="let service of listServices" [value]="service._id">{{service.title}}</ng-option>
+    </ng-select>
+    <div class="input-group form-search-md mb-3 mb-lg-0">
       <input type="text" class="form-control" [(ngModel)]="search.name" (keyup.enter)="getContacts()" placeholder="Tìm kiếm theo tên khách hàng" aria-label="Tìm kiếm theo tên khách hàng" aria-describedby="button-search">
       <div class="input-group-append">
         <button class="btn btn-outline-primary" type="button" id="button-search" (click)="getContacts()">
@@ -9,11 +14,6 @@
         </button>
       </div>
     </div>
-    <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [bsConfig]="configDRP">
-    <ng-select [(ngModel)]="search.service_id" [searchable]="false" [clearable]="false" class="ml-auto" (change)="getContacts()">
-      <ng-option value="">Tất cả</ng-option>
-      <ng-option *ngFor="let service of listServices" [value]="service._id">{{service.title}}</ng-option>
-    </ng-select>
   </div>
   <div class="table-responsive">
     <table class="table table-borderless table-striped table-hover">
