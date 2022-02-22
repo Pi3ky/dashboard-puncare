@@ -9,6 +9,7 @@
         </button>
       </div>
     </div>
+    <input type="text" placeholder="Daterangepicker" class="form-control" bsDaterangepicker [bsConfig]="configDRP">
     <ng-select [(ngModel)]="search.service_id" [searchable]="false" [clearable]="false" class="ml-auto" (change)="getContacts()">
       <ng-option value="">Tất cả</ng-option>
       <ng-option *ngFor="let service of listServices" [value]="service._id">{{service.title}}</ng-option>
@@ -24,16 +25,16 @@
           </div>
         </th>
         <th>Số điện thoại</th>
-        <th scope="col">
+        <th>Ngày tạo</th>
+        <th>Dịch vụ</th>
+        <th>
           <div class="pointer" (click)="sortByDate()">
-            Ngày tạo
+            Ngày hẹn
             <i class="fas fa-sort" *ngIf="sortDate === 0"></i>
             <i class="fas fa-sort-up" *ngIf="sortDate === 1"></i>
             <i class="fas fa-sort-down" *ngIf="sortDate === 2"></i>
           </div>
         </th>
-        <th>Dịch vụ</th>
-        <th>Ngày hẹn</th>
         <th>Thời gian</th>
         <th></th>
       </thead>

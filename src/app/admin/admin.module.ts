@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { ServicesPageComponent } from './services-page/services-page.component';
 import { ProductsPageComponent } from './products-page/products-page.component';
@@ -32,6 +33,7 @@ import { ModalViewOrderComponent } from './orders-page/modal-view-order/modal-vi
     ShareModule,
     EditorModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     NgSelectModule,
     AdminRoutingModule,
   ],
